@@ -1,0 +1,76 @@
+---
+title: "Tooth Growth - Statistical Inference Part 2"
+author: "Jackie Milhans"
+date: "July 24, 2015"
+output: pdf_document
+---
+
+We're going to analyze the ToothGrowth data in the R datasets package. 
+Load the ToothGrowth data and perform some basic exploratory data analyses.  
+
+##Data Summary
+
+The ToothGrowth dataset is the response is the length of odontoblasts (teeth) in each of 10 guinea pigs at each of three dose levels of Vitamin C (0.5, 1, and 2 mg) with each of two delivery methods (orange juice or ascorbic acid).  
+
+Let's provide a basic summary of the data. First we load the dataset.  
+```{r}
+library(datasets)
+data(ToothGrowth)
+head(ToothGrowth)
+summary(ToothGrowth)
+```
+
+The summary of the dataset shows that there are two supplements, OJ and VC. There are 3 doses:  0.5, 1, and 2.
+
+```{r}
+library(ggplot2)
+ggplot(ToothGrowth, aes(x=factor(dose), y=len, fill=factor(dose))) +
+        geom_boxplot() +
+        facet_grid(.~supp) + 
+        labs(main="Analyzing ToothGrowth Dataset", y="Length of Teeth", x="Dosage (mg)")
+```
+
+The plots show that a high dosage leads to longer teeth.  
+
+##Confidence Intervals
+
+We use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose.  
+
+Here, we use the hypothesis test, t-test.
+
+```{r}
+t.test(len~supp, data=ToothGrowth, paired=FALSE)
+```
+
+We can also look at the data by splitting into the different dosages.
+
+```{r}
+dose1 <- subset(ToothGrowth, dose==0.5)
+dose2 <- subset(ToothGrowth, dose==1.0)
+dose3 <- subset(ToothGrowth, dose==2.0)
+```
+
+First, we look at the smallest dose.  
+
+```{r}
+t.test(len~supp, data=dose1, paired=FALSE)
+```
+
+Now, we look at dosage of 1.0 mg.  
+
+```{r}
+t.test(len~supp, data=dose2, paired=FALSE)
+```
+
+Finally, the largest dose is examined.
+```{r}
+t.test(len~supp, data=dose3, paired=FALSE)
+```
+
+##Conclusions
+
+For the lower dosage data, we can see that the OJ produces higher tooth growth. At the highest dosage, there is little difference between the two supplements.  
+
+For a higher dose, the p-value is greater than 0.05, and the confidence interval lies between (-3.79807, 3.63807). The CI includes 0, so it shows that there is no significant difference between the two supplements.
+
+For the smallest and middle dosage, the p-value is lower that 0.05, and the confidence interval does not include 0. Therefore, we can see that there is a significant difference in growth with the smaller doses.
