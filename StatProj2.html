@@ -104,18 +104,6 @@ ggplot(ToothGrowth, aes(x=factor(dose), y=len, fill=factor(dose))) +
 <h2>Confidence Intervals</h2>
 <p>We use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose.</p>
 <p>Here, we use the hypothesis test, t-test.</p>
-<pre class="r"><code>t.test(len~supp, data=ToothGrowth, paired=FALSE)</code></pre>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  len by supp
-## t = 1.9153, df = 55.309, p-value = 0.06063
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -0.1710156  7.5710156
-## sample estimates:
-## mean in group OJ mean in group VC 
-##         20.66333         16.96333</code></pre>
 <p>We can also look at the data by splitting into the different dosages.</p>
 <pre class="r"><code>dose1 &lt;- subset(ToothGrowth, dose==0.5)
 dose2 &lt;- subset(ToothGrowth, dose==1.0)
@@ -133,19 +121,6 @@ dose3 &lt;- subset(ToothGrowth, dose==2.0)</code></pre>
 ## sample estimates:
 ## mean in group OJ mean in group VC 
 ##            13.23             7.98</code></pre>
-<p>Now, we look at dosage of 1.0 mg.</p>
-<pre class="r"><code>t.test(len~supp, data=dose2, paired=FALSE)</code></pre>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  len by supp
-## t = 4.0328, df = 15.358, p-value = 0.001038
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  2.802148 9.057852
-## sample estimates:
-## mean in group OJ mean in group VC 
-##            22.70            16.77</code></pre>
 <p>Finally, the largest dose is examined.</p>
 <pre class="r"><code>t.test(len~supp, data=dose3, paired=FALSE)</code></pre>
 <pre><code>## 
@@ -164,7 +139,37 @@ dose3 &lt;- subset(ToothGrowth, dose==2.0)</code></pre>
 <h2>Conclusions</h2>
 <p>For the lower dosage data, we can see that the OJ produces higher tooth growth. At the highest dosage, there is little difference between the two supplements.</p>
 <p>For a higher dose, the p-value is greater than 0.05, and the confidence interval lies between (-3.79807, 3.63807). The CI includes 0, so it shows that there is no significant difference between the two supplements.</p>
-<p>For the smallest and middle dosage, the p-value is lower that 0.05, and the confidence interval does not include 0. Therefore, we can see that there is a significant difference in growth with the smaller doses.</p>
+<p>For the smallest dosage, the p-value is lower that 0.05, and the confidence interval does not include 0. Therefore, we can see that there is a significant difference in growth with the smaller dose.</p>
+<p></p>
+</div>
+<div id="appendix" class="section level2">
+<h2>APPENDIX</h2>
+<p>Here, we use the hypothesis test by supplement for all data, t-test.</p>
+<pre class="r"><code>t.test(len~supp, data=ToothGrowth, paired=FALSE)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  len by supp
+## t = 1.9153, df = 55.309, p-value = 0.06063
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.1710156  7.5710156
+## sample estimates:
+## mean in group OJ mean in group VC 
+##         20.66333         16.96333</code></pre>
+<p>Dosage of 1.0 mg.</p>
+<pre class="r"><code>t.test(len~supp, data=dose2, paired=FALSE)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  len by supp
+## t = 4.0328, df = 15.358, p-value = 0.001038
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  2.802148 9.057852
+## sample estimates:
+## mean in group OJ mean in group VC 
+##            22.70            16.77</code></pre>
 </div>
 
 

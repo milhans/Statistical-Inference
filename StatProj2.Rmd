@@ -2,7 +2,7 @@
 title: "Tooth Growth - Statistical Inference Part 2"
 author: "Jackie Milhans"
 date: "July 24, 2015"
-output: pdf_document
+output: html_document
 ---
 
 We're going to analyze the ToothGrowth data in the R datasets package. 
@@ -38,10 +38,6 @@ We use confidence intervals and/or hypothesis tests to compare tooth growth by s
 
 Here, we use the hypothesis test, t-test.
 
-```{r}
-t.test(len~supp, data=ToothGrowth, paired=FALSE)
-```
-
 We can also look at the data by splitting into the different dosages.
 
 ```{r}
@@ -56,12 +52,6 @@ First, we look at the smallest dose.
 t.test(len~supp, data=dose1, paired=FALSE)
 ```
 
-Now, we look at dosage of 1.0 mg.  
-
-```{r}
-t.test(len~supp, data=dose2, paired=FALSE)
-```
-
 Finally, the largest dose is examined.
 ```{r}
 t.test(len~supp, data=dose3, paired=FALSE)
@@ -73,4 +63,20 @@ For the lower dosage data, we can see that the OJ produces higher tooth growth. 
 
 For a higher dose, the p-value is greater than 0.05, and the confidence interval lies between (-3.79807, 3.63807). The CI includes 0, so it shows that there is no significant difference between the two supplements.
 
-For the smallest and middle dosage, the p-value is lower that 0.05, and the confidence interval does not include 0. Therefore, we can see that there is a significant difference in growth with the smaller doses.
+For the smallest dosage, the p-value is lower that 0.05, and the confidence interval does not include 0. Therefore, we can see that there is a significant difference in growth with the smaller dose.
+
+\pagebreak
+
+##APPENDIX
+
+Here, we use the hypothesis test by supplement for all data, t-test.
+
+```{r}
+t.test(len~supp, data=ToothGrowth, paired=FALSE)
+```
+
+Dosage of 1.0 mg.  
+
+```{r}
+t.test(len~supp, data=dose2, paired=FALSE)
+```
